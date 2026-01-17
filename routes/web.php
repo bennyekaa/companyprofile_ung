@@ -49,11 +49,24 @@ Route::post('actionlogin', [AuthController::class, 'actionlogin']);
 Route::middleware('checklogin')->group(function () {
     Route::get('admin', [AdminController::class, 'index']);
     Route::prefix('master')->group(function () {
+        Route::prefix('berkas')->group(function () {
+            Route::get('index', [KategoriController::class, 'index']);
+        });
         Route::prefix('kategori')->group(function () {
             Route::get('index', [KategoriController::class, 'index']);
+            Route::get('tambah', [KategoriController::class, 'tambah']);
+            Route::post('action', [KategoriController::class, 'action']);
+            Route::get('edit/{id}', [KategoriController::class, 'edit']);
+            Route::get('hapus/{id}', [KategoriController::class, 'hapus']);
+            Route::get('status/{id}/{stat}', [KategoriController::class, 'status']);
         });
         Route::prefix('kelompok')->group(function () {
             Route::get('index', [KelompokController::class, 'index']);
+            Route::get('tambah', [KelompokController::class, 'tambah']);
+            Route::post('action', [KelompokController::class, 'action']);
+            Route::get('edit/{id}', [KelompokController::class, 'edit']);
+            Route::get('hapus/{id}', [KelompokController::class, 'hapus']);
+            Route::get('status/{id}/{stat}', [KelompokController::class, 'status']);
         });
         Route::prefix('konten')->group(function () {
             Route::get('index', [KontenController::class, 'index']);
@@ -68,6 +81,11 @@ Route::middleware('checklogin')->group(function () {
         });
         Route::prefix('role')->group(function () {
             Route::get('index', [RoleController::class, 'index']);
+            Route::get('tambah', [RoleController::class, 'tambah']);
+            Route::post('action', [RoleController::class, 'action']);
+            Route::get('edit/{id}', [RoleController::class, 'edit']);
+            Route::get('hapus/{id}', [RoleController::class, 'hapus']);
+            Route::get('status/{id}/{stat}', [RoleController::class, 'status']);
         });
     });
 });

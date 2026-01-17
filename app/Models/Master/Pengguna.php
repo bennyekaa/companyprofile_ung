@@ -14,4 +14,9 @@ class Pengguna extends Model
     protected $primaryKey = 'id';
 
     public $incrementing = false;
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, "role", "id");
+    }
 }

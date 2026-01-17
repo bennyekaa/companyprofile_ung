@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Konten extends Model
 {
     use HasFactory;
+    protected $connection = 'mysql';
+    protected $table = 'ref_konten';
+    //---Set Primary Key---
+    protected $primaryKey = 'id';
+
+    public $incrementing = false;
 }
