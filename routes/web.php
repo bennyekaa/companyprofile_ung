@@ -70,6 +70,11 @@ Route::middleware('checklogin')->group(function () {
         });
         Route::prefix('konten')->group(function () {
             Route::get('index', [KontenController::class, 'index']);
+            Route::get('tambah', [KontenController::class, 'tambah']);
+            Route::get('edit/{id}', [KontenController::class, 'edit']);
+            Route::post('action', [KontenController::class, 'action']);
+            Route::get('hapus/{id}', [KontenController::class, 'hapus']);
+            Route::get('status/{id}/{stat}', [KontenController::class, 'status']);
         });
         Route::prefix('pengguna')->group(function () {
             Route::get('index', [PenggunaController::class, 'index']);

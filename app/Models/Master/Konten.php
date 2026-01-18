@@ -14,4 +14,9 @@ class Konten extends Model
     protected $primaryKey = 'id';
 
     public $incrementing = false;
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, "id_kategori", "id");
+    }
 }
