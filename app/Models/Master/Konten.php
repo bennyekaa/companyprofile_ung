@@ -13,6 +13,11 @@ class Konten extends Model
     //---Set Primary Key---
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'tanggal' => 'date',
+        'tanggal_posting' => 'date',
+    ];
+
     public $incrementing = false;
 
     public function kategori()

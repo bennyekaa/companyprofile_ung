@@ -93,8 +93,8 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->judul }}</td>
-                                            <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->tanggal_posting }}</td>
+                                            <td>{{ $item->tanggal?->format('d M Y') }}</td>
+                                            <td>{{ $item->tanggal_posting?->format('d M Y') }}</td>
                                             <td>{{ $item->detail }}</td>
                                             <td>{{ $item->deskripsi }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit(strip_tags($item->keterangan), 100, '...') }}
@@ -109,7 +109,7 @@
                                                     @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
                                                         <img src="{{ asset('storage/' . str_replace('public/', '', $item->berkas)) }}"
                                                             alt="gambar" style="max-height:80px; border-radius:6px;">
-                                                    @elseif (in_array(strtolower($ext), ['mp4', 'webm', 'ogg','avi']))
+                                                    @elseif (in_array(strtolower($ext), ['mp4', 'webm', 'ogg', 'avi']))
                                                         <video
                                                             src="{{ asset('storage/' . str_replace('public/', '', $item->berkas)) }}"
                                                             style="max-height:80px; width:120px;" controls></video>
@@ -147,7 +147,8 @@
                                                         title="Lihat Data"><ion-icon name="eye"></ion-icon></a>
                                                     <a href="#" class="btn btn-secondary w-100"
                                                         title="Lihat Berkas"><ion-icon name="document"></ion-icon></a> --}}
-                                                    <a href="{{ url('master/konten/edit') }}/{{ encrypt($item->id) }}" class="btn btn-warning w-100" title="Edit"><ion-icon
+                                                    <a href="{{ url('master/konten/edit') }}/{{ encrypt($item->id) }}"
+                                                        class="btn btn-warning w-100" title="Edit"><ion-icon
                                                             name="pencil-sharp"></ion-icon></a>
                                                     <a href="{{ url('master/konten/hapus') }}/{{ encrypt($item->id) }}"
                                                         class="btn btn-danger btn-hapus" title="Hapus"><ion-icon
@@ -215,7 +216,7 @@
                     const data = table.column(7).data().toArray(); // kolom "Kategori" (0-based)
                     const unique = [...new Set(data)].filter(Boolean).sort();
                     const $sel = $('#filterKategori').empty().append(
-                    '<option value="">Semua Kategori</option>');
+                        '<option value="">Semua Kategori</option>');
                     unique.forEach(v => $sel.append(`<option value="${v}">${v}</option>`));
                 })();
             @endempty

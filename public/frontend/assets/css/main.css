@@ -3628,3 +3628,67 @@ section,
     font-size: 1.4rem;
   }
 }
+/* baru */
+/* HERO CAROUSEL SAFE MODE */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  min-height: calc(100vh - 90px);
+  padding-top: 90px;
+  display: block !important;
+}
+
+/* Swiper ikut tinggi hero lama */
+.hero-swiper,
+.hero-slide {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Background gambar */
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Video fullscreen tanpa merusak layout */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* Overlay tetap
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 80, 40, 0.55);
+  z-index: 1;
+} */
+
+/* Konten di atas */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pagination aman */
+.hero .swiper-pagination {
+  bottom: 20px;
+}
+
+/* FIX HERO GAP TOP & BOTTOM */
+#hero {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+}
+
+

@@ -2,27 +2,48 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section id="hero" class="hero section hero-bg">
-        <div class="hero-overlay"></div>
+    <section id="hero" class="hero hero-bg">
 
-        <div class="container position-relative">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-10" data-aos="zoom-out">
-                    <h1 class="hero-title">
-                        FAKULTAS KEDOKTERAN
-                    </h1>
-                    <h2 class="hero-subtitle">
-                        UNIVERSITAS NEGERI GORONTALO
-                    </h2>
-                    {{-- <p class="hero-domain">fk.ung.ac.id</p> --}}
+        <div class="swiper hero-swiper">
+            <div class="swiper-wrapper">
 
-                    {{-- <div class="d-flex justify-content-center gap-3 mt-4">
-                            <a href="#about" class="btn-get-started">Profil Fakultas</a>
+                @foreach ($hero as $item)
+                    @php
+                        $ext = strtolower(pathinfo($item->berkas, PATHINFO_EXTENSION));
+                        $src = asset('storage/' . str_replace('public/', '', $item->berkas));
+                    @endphp
+
+                    <div class="swiper-slide hero-slide">
+
+                        @if (in_array($ext, ['mp4', 'webm', 'ogg', 'avi']))
+                            <video class="hero-video" muted playsinline>
+                                <source src="{{ $src }}" type="video/{{ $ext }}">
+                            </video>
+                        @else
+                            <div class="hero-image" style="background-image: url('{{ $src }}')"></div>
+                        @endif
+
+                        <div class="hero-overlay"></div>
+
+                        {{-- <div class="container position-relative hero-content">
+                            <div class="row justify-content-center text-center">
+                                <div class="col-lg-10">
+                                    <h1 class="hero-title">{{ $item->detail }}</h1>
+                                    <h2 class="hero-subtitle">{{ $item->deskripsi }}</h2>
+                                </div>
+                            </div>
                         </div> --}}
-                </div>
+
+                    </div>
+                @endforeach
+
             </div>
+
+            <div class="swiper-pagination"></div>
         </div>
+
     </section>
+
     <!-- /Hero Section -->
 
     <!-- Recent Blog Postst Section -->
@@ -38,103 +59,55 @@
 
             <div class="row gy-5">
 
-                <div class="col-xl-4 col-md-6">
-                    <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="100">
+                @forelse ($informasi as $item)
+                    <div class="col-xl-4 col-md-6">
+                        <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="100">
 
-                        <div class="post-img position-relative overflow-hidden">
-                            <img src="frontend/assets/img/blog/blog-post-1.webp" class="img-fluid" alt="">
-                            <span class="post-date">December 12</span>
-                        </div>
-
-                        <div class="post-content d-flex flex-column">
-
-                            <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis</h3>
-
-                            <div class="meta d-flex align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
-                                </div>
-                                <span class="px-3 text-black-50">/</span>
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
-                                </div>
+                            <div class="post-img position-relative overflow-hidden">
+                                <img src="{{ asset('storage/' . str_replace('public/', '', $item->berkas)) }}"
+                                    class="img-fluid" alt="{{ $item->judul }}">
+                                <span class="post-date">
+                                    {{ $item->tanggal->format('d M Y') }}
+                                </span>
                             </div>
 
-                            <hr>
+                            <div class="post-content d-flex flex-column">
 
-                            <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i
-                                    class="bi bi-arrow-right"></i></a>
+                                <h3 class="post-title">{{ $item->judul }}</h3>
 
-                        </div>
+                                {{-- <div class="meta d-flex align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
+                                    </div>
+                                    <span class="px-3 text-black-50">/</span>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
+                                    </div>
+                                </div> --}}
 
-                    </div>
-                </div><!-- End post item -->
+                                <hr>
 
-                <div class="col-xl-4 col-md-6">
-                    <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="200">
+                                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i
+                                        class="bi bi-arrow-right"></i></a>
 
-                        <div class="post-img position-relative overflow-hidden">
-                            <img src="frontend/assets/img/blog/blog-post-2.webp" class="img-fluid" alt="">
-                            <span class="post-date">July 17</span>
-                        </div>
-
-                        <div class="post-content d-flex flex-column">
-
-                            <h3 class="post-title">Et repellendus molestiae qui est sed omnis</h3>
-
-                            <div class="meta d-flex align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-person"></i> <span class="ps-2">Mario Douglas</span>
-                                </div>
-                                <span class="px-3 text-black-50">/</span>
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-folder2"></i> <span class="ps-2">Sports</span>
-                                </div>
                             </div>
 
-                            <hr>
-
-                            <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i
-                                    class="bi bi-arrow-right"></i></a>
-
                         </div>
+                    </div><!-- End post item -->
 
+                @empty
+                    <div class="swiper-slide">
+                        <p class="text-center">Belum ada Berita tersedia.</p>
                     </div>
-                </div><!-- End post item -->
-
-                <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="post-item position-relative h-100">
-
-                        <div class="post-img position-relative overflow-hidden">
-                            <img src="frontend/assets/img/blog/blog-post-3.webp" class="img-fluid" alt="">
-                            <span class="post-date">September 05</span>
-                        </div>
-
-                        <div class="post-content d-flex flex-column">
-
-                            <h3 class="post-title">Quia assumenda est et veritati tirana ploder</h3>
-
-                            <div class="meta d-flex align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-person"></i> <span class="ps-2">Lisa Hunter</span>
-                                </div>
-                                <span class="px-3 text-black-50">/</span>
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i
-                                    class="bi bi-arrow-right"></i></a>
-
-                        </div>
-
-                    </div>
-                </div><!-- End post item -->
-
+                @endforelse
             </div>
+            @if ($informasi->count() > 2)
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-outline-primary">
+                    Baca Selengkapnya
+                </a>
+            </div>
+            @endif
 
         </div>
 
@@ -168,109 +141,30 @@
           </script>
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="frontend/assets/img/person/person-m-9.webp" class="testimonial-img" alt="">
-                            <h3>Saul Goodman</h3>
-                            <h4>Ceo &amp; Founder</h4>
-                            <div class="stars">
+                    @forelse ($agenda as $item)
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                {{-- <img src="frontend/assets/img/person/person-m-9.webp" class="testimonial-img" alt=""> --}}
+                                {{-- <h3>{{$item->judul}}</h3> --}}
+                                <h3>{{ $item->detail }}</h3>
+                                <h4>{{ $item->tanggal->format('d M Y') }}</h4>
+                                {{-- <div class="stars">
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                                     class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                                     class="bi bi-star-fill"></i>
+                            </div> --}}
+                                <p>
+                                    {{-- <i class="bi bi-quote quote-icon-left"></i> --}}
+                                    <span>{{ $item->deskripsi }}</span>
+                                    {{-- <i class="bi bi-quote quote-icon-right"></i> --}}
+                                </p>
                             </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum
-                                    suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et.
-                                    Maecen aliquam, risus at semper.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
+                        </div><!-- End testimonial item -->
+                    @empty
+                        <div class="swiper-slide">
+                            <p class="text-center">Belum ada Agenda tersedia.</p>
                         </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="frontend/assets/img/person/person-f-5.webp" class="testimonial-img" alt="">
-                            <h3>Sara Wilsson</h3>
-                            <h4>Designer</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum
-                                    quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat
-                                    irure amet legam anim culpa.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="frontend/assets/img/person/person-f-12.webp" class="testimonial-img"
-                                alt="">
-                            <h3>Jena Karlis</h3>
-                            <h4>Store Owner</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla
-                                    quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore
-                                    quis sint minim.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="frontend/assets/img/person/person-m-12.webp" class="testimonial-img"
-                                alt="">
-                            <h3>Matt Brandon</h3>
-                            <h4>Freelancer</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim
-                                    fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore
-                                    quem dolore labore illum veniam.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="frontend/assets/img/person/person-m-13.webp" class="testimonial-img"
-                                alt="">
-                            <h3>John Larson</h3>
-                            <h4>Entrepreneur</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor
-                                    noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam
-                                    esse veniam culpa fore nisi cillum quid.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
+                    @endforelse
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -278,4 +172,33 @@
         </div>
 
     </section><!-- /Testimonials Section -->
+@endsection
+@section('tambahanjs')
+    <script>
+        const heroSwiper = new Swiper('.hero-swiper', {
+            loop: true,
+            speed: 800,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            on: {
+                slideChange: function() {
+                    document.querySelectorAll('.hero-video').forEach(v => {
+                        v.pause();
+                        v.currentTime = 0;
+                    });
+
+                    const activeVideo = this.slides[this.activeIndex].querySelector('.hero-video');
+                    if (activeVideo) {
+                        activeVideo.play();
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

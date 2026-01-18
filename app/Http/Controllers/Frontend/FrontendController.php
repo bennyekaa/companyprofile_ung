@@ -3,13 +3,28 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Master\Konten;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     //
     public function index() {
-        return view('frontend.page.beranda.index');
+        $data['hero'] = Konten::where('id_kategori', 24)
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $data['informasi'] = Konten::where('id_kategori', 2)
+            ->where('status', 1)
+            ->orderBy('created_at', 'asc')
+            ->take(6)
+            ->get();
+        $data['agenda'] = Konten::where('id_kategori', 25)
+            ->where('status', 1)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('frontend.page.beranda.index', $data);
     }
 
     public function tentang() {

@@ -34,12 +34,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{url('master/berkas/index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Berkas</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{url('master/role/index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -52,12 +52,12 @@
                                 <p>Kategori</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{url('master/kelompok/index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kelompok</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{url('master/konten/index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
